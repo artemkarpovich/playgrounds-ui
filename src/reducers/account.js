@@ -1,35 +1,54 @@
-import {
-  ACCOUNT_FETCH_REQESTED,
-  ACCOUNT_FETCH_SUCCESSED,
-  ACCOUNT_FETCH_FAILED
-} from './../actions/account';
+import * as types from './../actions/account';
 
 const initialState = {
   isAuthenticated: false,
   isFetching: false,
-  errorMessage: null
+  errorMessage: null,
+  info: {}
 };
 
 export default function(state = initialState, action) {
   switch(action.type) {
-    case ACCOUNT_FETCH_REQESTED:
+    case types.ACCOUNT_FETCH_REQESTED:
       return {
         ...state,
         isFetching: true
       };
-    case ACCOUNT_FETCH_SUCCESSED:
+    case types.ACCOUNT_FETCH_SUCCESSED:
       return {
         ...state,
-        info: action.account,
         isFetching: false,
         isAuthenticated: true,
+        errorMessage: null,
+        info: action.account,
       };
-    case ACCOUNT_FETCH_FAILED:
+    case types.ACCOUNT_FETCH_FAILED:
       return {
         ...state,
         isFetching: false,
-        errorMessage: action.error
-      }
+        errorMessage: action.error,
+        info: {}
+      };
+    case types.ACCOUNT_SIGN_IN_REQUESTED:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case types.ACCOUNT_SIGN_IN_SUCCESSED:
+      return {
+        ...state,
+        isAuthenticated: true,
+        isFetching: false,
+        errorMessage: null,
+        info: action.account
+      };
+    case types.ACCOUNT_SIGN_IN_FAILED:
+      return {
+        ...state,
+        isFetching: false,
+        errorMessage: action.error,
+        info: {}
+      };
     default:
       return state;
   }

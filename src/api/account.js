@@ -3,14 +3,14 @@ import axios from 'axios';
 export function fetch() {
   const url = 'http://localhost:3001/api/v1/protected';
 
-  return axios.get(url);
+  return axios.get(url, { withCredentials: true });
 }
 
 export function signin(payload) {
-  const url = 'http://localhost:3001/api/v1/protected';
+  const url = 'http://localhost:3001/api/v1/auth/local/signin';
 
   return axios.post(url, {
     email: payload.email,
     password: payload.password
-  }, { withCredentials: true });
+  });
 }

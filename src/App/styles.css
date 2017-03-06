@@ -98,3 +98,8 @@
 .social-media-img {
   height: 25px;
 }
+
+.errorMessage {
+  margin-top: 5px;
+  color: tomato;
+}

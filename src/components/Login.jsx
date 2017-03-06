@@ -1,28 +1,58 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import facebookLogo from './../static/img/facebook.svg';
 import twitterLogo from './../static/img/twitter.svg';
 import gmailLogo from './../static/img/google.svg';
-import { ACCOUNT_FETCH_REQESTED } from './../actions/account';
+import { ACCOUNT_SIGN_IN_REQUESTED } from './../actions/account';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      email: '',
+      password: ''
+    };
+
+    this.submitLogin = this.submitLogin.bind(this);
+    this.handleChangeValue = this.handleChangeValue.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    if (this.props.account.isAuthenticated) {
+      browserHistory.push('/');
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.account.isAuthenticated) {
+      browserHistory.push('/');
+    }
+  }
+
+  handleChangeValue(event, newValue, key) {
+    this.setState({ [key]: newValue });
+  }
+
+  submitLogin(event) {
+    event.preventDefault();
+    const { email, password } = this.state;
     const { dispatch } = this.props;
 
     dispatch({
-      type: ACCOUNT_FETCH_REQESTED,
+      type: ACCOUNT_SIGN_IN_REQUESTED,
+      payload: { email, password }
     });
+
+    this.setState({ email: '', password: '' });
   }
 
   render() {
+    const { email, password } = this.state;
+    const { account } = this.props;
     return (
       <div className="login">
         <div className="app-info">
@@ -67,32 +97,50 @@ class Login extends React.Component {
               </span>
             </a>
           </div>
-          <form className="login-form">
+          <form className="login-form" onSubmit={this.submitLogin}>
             <TextField
               hintText="Введите логин"
               floatingLabelText="Логин"
               fullWidth={true}
+              onChange={
+                (event, newValue) =>
+                  this.handleChangeValue(event, newValue, 'email')
+              }
+              value={email}
             />
             <TextField
               hintText="Введите пароль"
               floatingLabelText="Пароль"
               type="password"
               fullWidth={true}
+              onChange={
+                (event, newValue) =>
+                  this.handleChangeValue(event, newValue, 'password')
+              }
+              value={password}
             />
             <RaisedButton
               label="Войти"
               primary={true}
               className="login-button"
+              type="submit"
             />
           </form>
+          {
+            account.errorMessage ?
+              <div className="errorMessage">
+                { account.errorMessage.message }
+              </div> :
+              null
+          }
         </div>
       </div>
     );
   }
 }
 
-const mapStataToProps = (state) => ({
+const mapStateToProps = (state) => ({
   account: state.account
 });
 
-export default connect(mapStataToProps)(Login);
+export default connect(mapStateToProps)(Login);

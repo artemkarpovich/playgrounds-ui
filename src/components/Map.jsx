@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import Helmet from 'react-helmet';
-import axios from 'axios';
 
 const GettingStartedGoogleMap = withGoogleMap(props => (
   <GoogleMap
@@ -39,11 +38,6 @@ export default class GettingStartedExample extends Component {
     if (map) {
       console.log(map.getZoom());
     }
-  }
-  componentDidMount() {
-    axios.get('http://localhost:3001/api/v1/protected')
-      .then(result => console.log(result, 'result'))
-      .catch(err => console.log(err, 'err'));
   }
 
   render() {
