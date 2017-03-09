@@ -12,5 +12,11 @@ export function signin(payload) {
   return axios.post(url, {
     email: payload.email,
     password: payload.password
-  });
+  }, { withCredentials: true });
+}
+
+export function logout() {
+  const url = 'http://localhost:3001/api/v1/logout';
+
+  return axios.get(url, { withCredentials: true });
 }

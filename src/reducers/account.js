@@ -49,6 +49,27 @@ export default function(state = initialState, action) {
         errorMessage: action.error,
         info: {}
       };
+    case types.ACCOUNT_LOGOUT_REQESTED:
+      return {
+        ...state,
+        isFetching: true
+      };
+    case types.ACCOUNT_LOGOUT_SUCCESSED:
+      return {
+        ...state,
+        isFetching: false,
+        isAuthenticated: false,
+        info: {},
+        errorMessage: null,
+      };
+    case types.ACCOUNT_LOGOUT_FAILED:
+      return {
+        ...state,
+        isFetching: false,
+        isAuthenticated: false,
+        info: {},
+        errorMessage: action.error
+      };
     default:
       return state;
   }
