@@ -19,18 +19,6 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
 ));
 
 export default class GettingStartedExample extends Component {
-
-  state = {
-    markers: [{
-      position: {
-        lat: 53.665764,
-        lng: 23.816194,
-      },
-      key: `Taiwan`,
-      defaultAnimation: 2,
-    }],
-  };
-
   handleMapLoad = this.handleMapLoad.bind(this);
 
   handleMapLoad(map) {
@@ -41,6 +29,7 @@ export default class GettingStartedExample extends Component {
   }
 
   render() {
+    const { playgrounds } = this.props;
     return (
       <div style={{height: '100%', width: '100%'}}>
         <Helmet
@@ -54,7 +43,7 @@ export default class GettingStartedExample extends Component {
             <div style={{ height: `100%` }} />
           }
           onMapLoad={this.handleMapLoad}
-          markers={this.state.markers}
+          markers={playgrounds}
         />
       </div>
     );

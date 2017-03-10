@@ -10,9 +10,11 @@ import BasketballIcon from './../components/icons/Basketball';
 import './styles.css';
 
 class App extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.dispatch({ type: types.ACCOUNT_FETCH_REQESTED });
+  }
 
+  componentWillMount() {
     if(!this.props.account.isAuthenticated) {
       browserHistory.push('/login');
     }

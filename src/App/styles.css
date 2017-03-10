@@ -103,3 +103,19 @@
   margin-top: 5px;
   color: tomato;
 }
+
+.playgroundContainer {
+  display: flex;
+  justify-content: space-between;
+  height: 93%;
+  padding: 5px;
+}
+
+.mapContainer {
+  width: 70%;
+  height: 80%;
+}
+
+.messageBoxContainer {
+  width: 20%
+}

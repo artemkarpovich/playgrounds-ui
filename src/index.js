@@ -7,8 +7,8 @@ import { Provider } from 'react-redux';
 import { muiTheme } from './styles';
 import store from './store';
 import App from './App';
-import Map from './components/Map';
 import Login from './components/Login';
+import Playground from './containers/Playground';
 
 injectTapEventPlugin();
 
@@ -20,7 +20,7 @@ ReactDOM.render((
       <Router history={browserHistory}>
         <Route>
           <Route path="/" component={App}>
-            <IndexRoute component={Map} />
+            <IndexRoute component={Playground} />
           </Route>
           <Route path="login" component={Login} />
         </Route>
