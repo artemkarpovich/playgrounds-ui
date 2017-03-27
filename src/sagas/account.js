@@ -1,5 +1,4 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { browserHistory } from 'react-router';
 import { fetch, signin, logout } from './../api/account';
 import * as types from './../actions/account';
 import errorResponseParser from './../utils/errorResponseParser';
@@ -35,7 +34,6 @@ const logoutAccount = function* () {
     yield call(logout);
 
     yield put({ type: types.ACCOUNT_LOGOUT_SUCCESSED });
-    yield call(browserHistory.push, '/login');
   } catch (error) {
     yield put({
       type: types.ACCOUNT_LOGOUT_FAILED,

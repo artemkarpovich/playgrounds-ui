@@ -4,9 +4,7 @@ import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import { browserHistory } from 'react-router';
 import * as types from './../actions/account';
-import VolleyballIcon from './../components/icons/Volleyball';
 import FootballIcon from './../components/icons/Football';
-import BasketballIcon from './../components/icons/Basketball';
 import './styles.css';
 
 class App extends React.Component {
@@ -14,39 +12,43 @@ class App extends React.Component {
     this.props.dispatch({ type: types.ACCOUNT_FETCH_REQESTED });
   }
 
-  componentWillMount() {
-    if(!this.props.account.isAuthenticated) {
-      browserHistory.push('/login');
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if(!nextProps.account.isAuthenticated) {
-      browserHistory.push('/login');
-    }
-  }
-
   logout() {
     this.props.dispatch({ type: types.ACCOUNT_LOGOUT_REQESTED });
   }
 
+  login() {
+    browserHistory.push('/login');
+  }
+
   render() {
-    const { children } = this.props;
+    const { children, account } = this.props;
     return (
       <div className="root-container">
-        <AppBar
-          title="Playgrounds"
-          iconElementLeft={
-            <div className="logo-container">
-              <VolleyballIcon />
-              <FootballIcon />
-              <BasketballIcon />
-            </div>
-          }
-          iconElementRight={
-            <FlatButton label="Logout" onClick={this.logout.bind(this)} />
-          }
-        />
+        {
+          account.isAuthenticated ?
+            <AppBar
+              title="Playgrounds"
+              iconElementLeft={
+                <div className="logo-container">
+                  <FootballIcon />
+                </div>
+              }
+              iconElementRight={
+                <FlatButton label="Logout" onClick={this.logout.bind(this)} />
+              }
+            /> :
+            <AppBar
+              title="Playgrounds"
+              iconElementLeft={
+                <div className="logo-container">
+                  <FootballIcon />
+                </div>
+              }
+              iconElementRight={
+                <FlatButton label="Login" onClick={this.login.bind(this)} />
+              }
+            />
+        }
         {children}
       </div>
     );

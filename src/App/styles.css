@@ -117,5 +117,26 @@
 }
 
 .messageBoxContainer {
-  width: 20%
+  width: 25%
+}
+
+.message-box {
+  height: 50%;
+}
+
+.chat-body {
+  height: 85%;
+  max-height: 85%;
+  overflow: auto;
+}
+
+.chat-input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 10%;
+}
+
+.default-box {
+  height: 50%;
 }

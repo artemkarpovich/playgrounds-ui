@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Map from './../components/Map';
+import MessageBox from './../components/messageBox/MessageBox';
 import * as types from './../actions/playgrounds';
 
 class Playground extends React.Component {
@@ -9,17 +10,21 @@ class Playground extends React.Component {
   }
 
   render() {
-    const { playgrounds } = this.props;
+    const { playgrounds, account } = this.props;
 
     return (
       <div className="playgroundContainer">
         <div className="mapContainer">
           <Map playgrounds={playgrounds} />
         </div>
-        <div className="messageBoxContainer">
-          <div>Mesaage Box</div>
-          <div>Default Box</div>
-        </div>
+        {
+          account.isAuthenticated ?
+          <div className="messageBoxContainer">
+            <MessageBox account={account} />
+            <div className="default-box">Default Box</div>
+          </div> :
+          null
+        }
       </div>
     );
   }
